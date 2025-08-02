@@ -19,6 +19,7 @@ interface PersonaResult {
   advice: string;
   warning: string;
   hashtags: string[];
+  relatedFigures: string[];
 }
 
 export default function ResultPage({ answers, onRestart }: ResultPageProps) {
@@ -211,6 +212,23 @@ export default function ResultPage({ answers, onRestart }: ResultPageProps) {
                 </span>
               ))}
             </div>
+
+            {/* Related Figures */}
+            {persona.relatedFigures && persona.relatedFigures.length > 0 && (
+              <div className="border-t border-gray-600 pt-6">
+                <h3 className="text-center text-gray-400 text-sm mb-3">비슷한 인물들</h3>
+                <div className="flex flex-wrap gap-2 justify-center">
+                  {persona.relatedFigures.map((figure, index) => (
+                    <span
+                      key={index}
+                      className="px-3 py-1 bg-gray-700/50 text-gray-300 rounded-lg text-sm border border-gray-600"
+                    >
+                      {figure}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">

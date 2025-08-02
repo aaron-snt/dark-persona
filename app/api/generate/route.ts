@@ -20,6 +20,7 @@ export interface PersonaResponse {
   advice: string;
   warning: string;
   hashtags: string[];
+  relatedFigures: string[];
 }
 
 export async function POST(request: NextRequest) {
@@ -43,6 +44,7 @@ Tone:
 - Emotionally engaging but easy to understand
 - Avoid overly abstract or cryptic language
 - Hook the user with clarity and self-recognition
+- Use short sentences and limit line length
 
 Respond in ${responseLanguage} language.
 
@@ -53,19 +55,24 @@ Input:
 
 Output format (JSON):
 {
-  "title": "A short, poetic title in quotes",
-  "summary": "One-line summary for fast understanding",
-  "highlight": "One emotionally sharp sentence that hooks attention",
+  "title": "A short, poetic title (under 30 characters)",
+  "summary": "One-line summary for fast understanding (under 60 characters)",
+  "highlight": "One emotionally sharp sentence that hooks attention (under 60 characters)",
   "description": [
-    "3–5 short lines describing personality",
-    "Focus on observable behavior, internal logic, and social tendencies",
-    "Each line must be clear, relatable, and avoid excessive metaphor"
+    "3–4 short lines (each under 80 characters)",
+    "Describe behavior, logic, and emotion clearly",
+    "Avoid metaphor unless highly intuitive"
   ],
-  "advice": "One actionable sentence the user can apply",
-  "warning": "A behavioral warning starting with ⚠️",
+  "advice": "One clear, actionable sentence (under 50 characters)",
+  "warning": "⚠️ Start with this emoji. Stay under 70 characters.",
   "hashtags": [
-    "3 short tags without # symbol",
-    "Describe personality type or behavioral patterns"
+    "3 concise tags without #",
+    "Describe the persona's key tendencies"
+  ],
+  "relatedFigures": [
+    "List 2–3 well-known public figures or fictional characters",
+    "Format each as: 'Name (Source)'",
+    "They must reflect the same behavioral and emotional traits"
   ]
 }`;
 
@@ -89,10 +96,11 @@ Output format (JSON):
         title: lines[0] || "알 수 없는 페르소나",
         summary: lines[1] || "복잡한 성격",
         highlight: lines[2] || "당신의 내면이 복잡합니다.",
-        description: lines.slice(3, -3),
-        advice: lines[lines.length - 3] || "자신을 더 이해해보세요.",
-        warning: lines[lines.length - 2] || "⚠️ 주의가 필요합니다.",
-        hashtags: (lines[lines.length - 1] || "").split(' ').filter(h => h.startsWith('#')).map(h => h.slice(1))
+        description: lines.slice(3, -4),
+        advice: lines[lines.length - 4] || "자신을 더 이해해보세요.",
+        warning: lines[lines.length - 3] || "⚠️ 주의가 필요합니다.",
+        hashtags: (lines[lines.length - 2] || "").split(' ').filter(h => h.startsWith('#')).map(h => h.slice(1)),
+        relatedFigures: (lines[lines.length - 1] || "").split(',').map(f => f.trim()).filter(f => f)
       };
     }
 
