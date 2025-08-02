@@ -25,5 +25,5 @@ export const useLanguage = () => {
     setLanguage(detectLanguage());
   }, []);
 
-  return { language, setLanguage };
+  return { language };
 };

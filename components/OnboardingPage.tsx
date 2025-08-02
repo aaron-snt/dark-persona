@@ -1,5 +1,5 @@
 import AdSenseUnit from './AdSenseUnit';
-import { useLanguage, Language } from '@/hooks/useLanguage';
+import { useLanguage } from '@/hooks/useLanguage';
 import { getTranslation } from '@/utils/translations';
 
 interface OnboardingPageProps {
@@ -7,27 +7,11 @@ interface OnboardingPageProps {
 }
 
 export default function OnboardingPage({ onStart }: OnboardingPageProps) {
-  const { language, setLanguage } = useLanguage();
+  const { language } = useLanguage();
   const t = getTranslation(language);
   return (
     <div className="flex flex-col items-center justify-center min-h-screen p-8">
       <div className="max-w-2xl text-center space-y-8">
-        {/* 언어 선택 */}
-        <div className="mb-4 flex justify-center space-x-2">
-          {['ko', 'en', 'ja', 'es'].map((lang) => (
-            <button
-              key={lang}
-              onClick={() => setLanguage(lang as Language)}
-              className={`px-3 py-1 rounded text-sm transition-all ${
-                language === lang 
-                  ? 'bg-purple-600 text-white' 
-                  : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
-              }`}
-            >
-              {lang.toUpperCase()}
-            </button>
-          ))}
-        </div>
 
         <div className="space-y-4">
           <h1 className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-red-500 via-purple-500 to-indigo-500 bg-clip-text text-transparent">
