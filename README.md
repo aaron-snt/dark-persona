@@ -14,7 +14,7 @@ AI 기반 다크 성향 성격 테스트 웹앱입니다. Claude API를 이용�
 
 - **Frontend**: Next.js 15 + TypeScript
 - **Styling**: TailwindCSS
-- **AI API**: Anthropic Claude 3 Sonnet
+- **AI API**: Anthropic Claude 3.5 Sonnet
 - **배포**: Vercel (예정)
 
 ## 🚀 시작하기
@@ -23,7 +23,7 @@ AI 기반 다크 성향 성격 테스트 웹앱입니다. Claude API를 이용�
 
 1. 저장소 클론
 ```bash
-git clone [repository-url]
+git clone https://github.com/aaron-snt/dark-persona.git
 cd dark-persona
 ```
 
