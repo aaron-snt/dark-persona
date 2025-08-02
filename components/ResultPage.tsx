@@ -65,15 +65,15 @@ export default function ResultPage({ answers, onRestart }: ResultPageProps) {
   const handleShare = async () => {
     if (!persona) return;
 
-    const shareText = `${persona.title}\n\n${persona.description.join('\n')}\n\n${persona.warning}\n\n#DarkPersona #AI성격테스트`;
+    const shareText = `${persona.title}\n\n${persona.highlight}\n\n${persona.description.join('\n')}\n\n${persona.advice}\n\n${persona.warning}\n\n#DarkPersona #AI성격테스트 #${persona.hashtags.join(' #')}`;
     
     // Web Share API 지원 확인
     if (typeof navigator !== 'undefined' && navigator.share) {
       try {
         await navigator.share({
-          title: `${t.title} ${t.result.share}`,
-          text: shareText,
-          url: window.location.href,
+          title: `${persona.title} | Dark Persona`,
+          text: `${persona.highlight}\n\n${shareText}`,
+          url: window.location.origin,
         });
         return;
       } catch {
