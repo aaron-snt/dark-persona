@@ -5,40 +5,30 @@ import { useState, useEffect } from 'react';
 export type Language = 'ko' | 'en' | 'ja' | 'es';
 
 export const useLanguage = () => {
-  const [language, setLanguage] = useState<Language>(() => {
-    // 클라이언트 사이드에서만 브라우저 언어 감지
-    if (typeof window !== 'undefined') {
-      const browserLang = navigator.language.toLowerCase();
-      
-      if (browserLang.startsWith('ko')) return 'ko';
-      if (browserLang.startsWith('en')) return 'en';
-      if (browserLang.startsWith('ja')) return 'ja';
-      if (browserLang.startsWith('es')) return 'es';
-    }
-    
-    return 'en'; // 기본값을 영어로 변경
-  });
+  const [language, setLanguage] = useState<Language>('en');
+  const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
-    // 브라우저 언어 감지 (한 번 더 확인)
+    // 클라이언트 사이드임을 확인
+    setIsClient(true);
+    
+    // 브라우저 언어 감지
     const detectLanguage = (): Language => {
-      if (typeof window === 'undefined') return 'en';
-      
       const browserLang = navigator.language.toLowerCase();
+      console.log('Detected browser language:', browserLang); // 디버깅용
       
       if (browserLang.startsWith('ko')) return 'ko';
       if (browserLang.startsWith('en')) return 'en';
       if (browserLang.startsWith('ja')) return 'ja';
       if (browserLang.startsWith('es')) return 'es';
       
-      return 'en'; // 기본값을 영어로 변경
+      return 'en'; // 기본값
     };
 
     const detectedLang = detectLanguage();
-    if (detectedLang !== language) {
-      setLanguage(detectedLang);
-    }
-  }, [language]);
+    console.log('Setting language to:', detectedLang); // 디버깅용
+    setLanguage(detectedLang);
+  }, []);
 
-  return { language };
+  return { language, isClient };
 };

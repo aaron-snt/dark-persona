@@ -12,7 +12,7 @@ interface QuestionFormProps {
 
 
 export default function QuestionForm({ onSubmit }: QuestionFormProps) {
-  const { language } = useLanguage();
+  const { language, isClient } = useLanguage();
   const t = getTranslation(language);
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [answers, setAnswers] = useState<string[]>([]);
@@ -59,6 +59,11 @@ export default function QuestionForm({ onSubmit }: QuestionFormProps) {
       });
     }
   };
+
+  // 클라이언트 사이드 렌더링이 완료될 때까지 기다림
+  if (!isClient) {
+    return <div className="min-h-screen bg-gradient-to-br from-gray-900 via-purple-900 to-black"></div>;
+  }
 
   // 번역된 질문들 
   const translatedQuestions = [

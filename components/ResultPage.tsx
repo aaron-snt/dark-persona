@@ -14,12 +14,14 @@ interface ResultPageProps {
 interface PersonaResult {
   title: string;
   description: string[];
+  summary: string;
+  advice: string;
   warning: string;
   hashtags: string[];
 }
 
 export default function ResultPage({ answers, onRestart }: ResultPageProps) {
-  const { language } = useLanguage();
+  const { language, isClient } = useLanguage();
   const t = getTranslation(language);
   const [persona, setPersona] = useState<PersonaResult | null>(null);
   const [loading, setLoading] = useState(true);
@@ -52,6 +54,11 @@ export default function ResultPage({ answers, onRestart }: ResultPageProps) {
 
     generatePersona();
   }, [answers, t.result.error, t.result.generalError]);
+
+  // 클라이언트 사이드 렌더링이 완료될 때까지 기다림
+  if (!isClient) {
+    return <div className="min-h-screen bg-gradient-to-br from-gray-900 via-purple-900 to-black"></div>;
+  }
 
   const handleShare = async () => {
     if (!persona) return;
@@ -153,17 +160,35 @@ export default function ResultPage({ answers, onRestart }: ResultPageProps) {
             </h1>
           </div>
 
-          <div className="bg-gray-800/50 backdrop-blur p-8 rounded-2xl border border-gray-700 space-y-6">
-            <div className="space-y-4">
+          <div className="bg-gray-800/50 backdrop-blur p-6 sm:p-8 rounded-2xl border border-gray-700 space-y-6">
+            {/* Summary */}
+            <div className="text-center">
+              <p className="text-purple-300 font-medium text-lg sm:text-xl">
+                {persona.summary}
+              </p>
+            </div>
+
+            {/* Description */}
+            <div className="space-y-3 sm:space-y-4">
               {persona.description.map((line, index) => (
-                <p key={index} className="text-lg leading-relaxed text-gray-200">
+                <p key={index} className="text-base sm:text-lg leading-relaxed text-gray-200">
                   {line}
                 </p>
               ))}
             </div>
 
+            {/* Advice */}
             <div className="border-t border-gray-600 pt-6">
-              <p className="text-red-400 font-medium text-lg">
+              <div className="bg-blue-900/30 border border-blue-700/50 rounded-lg p-4">
+                <p className="text-blue-300 font-medium text-sm sm:text-base">
+                  💡 {persona.advice}
+                </p>
+              </div>
+            </div>
+
+            {/* Warning */}
+            <div className="border-t border-gray-600 pt-6">
+              <p className="text-red-400 font-medium text-base sm:text-lg">
                 {persona.warning}
               </p>
             </div>

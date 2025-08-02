@@ -15,6 +15,8 @@ export interface PersonaRequest {
 export interface PersonaResponse {
   title: string;
   description: string[];
+  summary: string;
+  advice: string;
   warning: string;
   hashtags: string[];
 }
@@ -55,6 +57,8 @@ Output format (JSON):
     "Focus on observable behavior, motivation, and inner conflict",
     "Each line must be a separate string"
   ],
+  "summary": "A one-line summary for clarity",
+  "advice": "One actionable sentence the user can apply",
   "warning": "A simple behavioral warning starting with ⚠️",
   "hashtags": [
     "3 short tags without # symbol, describing personality type and tendency",
@@ -80,7 +84,9 @@ Output format (JSON):
       const lines = responseText.split('\n').filter(line => line.trim());
       personaData = {
         title: lines[0] || "알 수 없는 페르소나",
-        description: lines.slice(1, -2),
+        description: lines.slice(1, -4),
+        summary: lines[lines.length - 4] || "복잡한 성격",
+        advice: lines[lines.length - 3] || "자신을 더 이해해보세요.",
         warning: lines[lines.length - 2] || "⚠️ 주의가 필요합니다.",
         hashtags: (lines[lines.length - 1] || "").split(' ').filter(h => h.startsWith('#')).map(h => h.slice(1))
       };
