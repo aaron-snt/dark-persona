@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { UserAnswers } from '@/app/page';
+import AdSenseUnit from './AdSenseUnit';
 
 interface QuestionFormProps {
   onSubmit: (answers: UserAnswers) => void;
@@ -143,6 +144,15 @@ export default function QuestionForm({ onSubmit }: QuestionFormProps) {
           </div>
 
           <div className="text-center space-y-8">
+            {/* 질문 상단 광고 */}
+            <div className="mb-6">
+              <AdSenseUnit 
+                adSlot="5555555555"
+                adFormat="rectangle"
+                className="bg-gray-800/30 p-4 rounded-lg"
+              />
+            </div>
+
             <h2 className="text-2xl md:text-3xl font-semibold mb-8">
               {question.question}
             </h2>
@@ -170,6 +180,15 @@ export default function QuestionForm({ onSubmit }: QuestionFormProps) {
     return (
       <div className="flex flex-col items-center justify-center min-h-screen p-8">
         <div className="w-full max-w-2xl text-center space-y-8">
+          {/* 성향 선택 상단 광고 */}
+          <div className="mb-6">
+            <AdSenseUnit 
+              adSlot="6666666666"
+              adFormat="rectangle"
+              className="bg-gray-800/30 p-4 rounded-lg"
+            />
+          </div>
+
           <h2 className="text-2xl md:text-3xl font-semibold">
             당신의 성향을 선택하세요
           </h2>
@@ -212,6 +231,15 @@ export default function QuestionForm({ onSubmit }: QuestionFormProps) {
     return (
       <div className="flex flex-col items-center justify-center min-h-screen p-8">
         <div className="w-full max-w-2xl text-center space-y-8">
+          {/* 감정 선택 상단 광고 */}
+          <div className="mb-6">
+            <AdSenseUnit 
+              adSlot="7777777777"
+              adFormat="rectangle"
+              className="bg-gray-800/30 p-4 rounded-lg"
+            />
+          </div>
+
           <h2 className="text-2xl md:text-3xl font-semibold">
             현재 당신의 감정은?
           </h2>

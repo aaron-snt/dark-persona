@@ -1,3 +1,5 @@
+import AdSenseUnit from './AdSenseUnit';
+
 interface OnboardingPageProps {
   onStart: () => void;
 }
@@ -6,6 +8,15 @@ export default function OnboardingPage({ onStart }: OnboardingPageProps) {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen p-8">
       <div className="max-w-2xl text-center space-y-8">
+        {/* 상단 광고 */}
+        <div className="mb-8">
+          <AdSenseUnit 
+            adSlot="1111111111"
+            adFormat="rectangle"
+            className="bg-gray-800/30 p-4 rounded-lg"
+          />
+        </div>
+
         <div className="space-y-4">
           <h1 className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-red-500 via-purple-500 to-indigo-500 bg-clip-text text-transparent">
             Dark Persona
@@ -19,6 +30,16 @@ export default function OnboardingPage({ onStart }: OnboardingPageProps) {
           <p className="leading-relaxed">
             당신의 내면에 숨겨진 어두운 면을 AI가 읽어드립니다.
           </p>
+          
+          {/* 중간 광고 */}
+          <div className="my-6">
+            <AdSenseUnit 
+              adSlot="2222222222"
+              adFormat="horizontal"
+              className="bg-gray-800/30 p-3 rounded-lg"
+            />
+          </div>
+
           <p className="text-base text-gray-400">
             몇 가지 질문과 선택을 통해 당신만의 다크 페르소나를 발견해보세요.
             <br />
@@ -40,9 +61,27 @@ export default function OnboardingPage({ onStart }: OnboardingPageProps) {
           </p>
         </div>
 
+        {/* 버튼 하단 광고 */}
+        <div className="mt-8">
+          <AdSenseUnit 
+            adSlot="3333333333"
+            adFormat="rectangle"
+            className="bg-gray-800/30 p-4 rounded-lg"
+          />
+        </div>
+
         <div className="mt-12 text-xs text-gray-600 space-y-2">
           <p>⚠️ 이 테스트는 엔터테인먼트 목적입니다</p>
           <p>실제 심리 진단이 아닙니다</p>
+        </div>
+
+        {/* 최하단 배너 광고 */}
+        <div className="mt-8">
+          <AdSenseUnit 
+            adSlot="4444444444"
+            adFormat="horizontal"
+            className="bg-gray-800/30 p-3 rounded-lg"
+          />
         </div>
       </div>
     </div>
