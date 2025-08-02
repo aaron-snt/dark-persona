@@ -13,8 +13,9 @@ interface ResultPageProps {
 
 interface PersonaResult {
   title: string;
-  description: string[];
   summary: string;
+  highlight: string;
+  description: string[];
   advice: string;
   warning: string;
   hashtags: string[];
@@ -165,6 +166,13 @@ export default function ResultPage({ answers, onRestart }: ResultPageProps) {
             <div className="text-center">
               <p className="text-purple-300 font-medium text-lg sm:text-xl">
                 {persona.summary}
+              </p>
+            </div>
+
+            {/* Highlight */}
+            <div className="text-center bg-gradient-to-r from-red-900/30 to-purple-900/30 border border-red-500/30 rounded-lg p-4">
+              <p className="text-red-300 font-semibold text-base sm:text-lg italic">
+                &ldquo;{persona.highlight}&rdquo;
               </p>
             </div>
 

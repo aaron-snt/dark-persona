@@ -14,8 +14,9 @@ export interface PersonaRequest {
 
 export interface PersonaResponse {
   title: string;
-  description: string[];
   summary: string;
+  highlight: string;
+  description: string[];
   advice: string;
   warning: string;
   hashtags: string[];
@@ -34,13 +35,14 @@ export async function POST(request: NextRequest) {
 
     const responseLanguage = languageMap[language as keyof typeof languageMap] || 'English';
 
-    const prompt = `You are a dark personality profiler.
+    const prompt = `
+You are a dark personality profiler.
 Based on the user's traits, emotional state, and behavior choices, generate a unique persona description.
 
-Tone: 
+Tone:
 - Emotionally engaging but easy to understand
-- Use metaphors sparingly and clearly
-- The goal is to help the user recognize themselves, not confuse them
+- Avoid overly abstract or cryptic language
+- Hook the user with clarity and self-recognition
 
 Respond in ${responseLanguage} language.
 
@@ -51,18 +53,19 @@ Input:
 
 Output format (JSON):
 {
-  "title": "A one-line poetic but clear title (in quotes)",
+  "title": "A short, poetic title in quotes",
+  "summary": "One-line summary for fast understanding",
+  "highlight": "One emotionally sharp sentence that hooks attention",
   "description": [
-    "3–5 short lines describing personality in a way the user can easily relate to",
-    "Focus on observable behavior, motivation, and inner conflict",
-    "Each line must be a separate string"
+    "3–5 short lines describing personality",
+    "Focus on observable behavior, internal logic, and social tendencies",
+    "Each line must be clear, relatable, and avoid excessive metaphor"
   ],
-  "summary": "A one-line summary for clarity",
   "advice": "One actionable sentence the user can apply",
-  "warning": "A simple behavioral warning starting with ⚠️",
+  "warning": "A behavioral warning starting with ⚠️",
   "hashtags": [
-    "3 short tags without # symbol, describing personality type and tendency",
-    "Avoid abstract or poetic terms"
+    "3 short tags without # symbol",
+    "Describe personality type or behavioral patterns"
   ]
 }`;
 
@@ -84,8 +87,9 @@ Output format (JSON):
       const lines = responseText.split('\n').filter(line => line.trim());
       personaData = {
         title: lines[0] || "알 수 없는 페르소나",
-        description: lines.slice(1, -4),
-        summary: lines[lines.length - 4] || "복잡한 성격",
+        summary: lines[1] || "복잡한 성격",
+        highlight: lines[2] || "당신의 내면이 복잡합니다.",
+        description: lines.slice(3, -3),
         advice: lines[lines.length - 3] || "자신을 더 이해해보세요.",
         warning: lines[lines.length - 2] || "⚠️ 주의가 필요합니다.",
         hashtags: (lines[lines.length - 1] || "").split(' ').filter(h => h.startsWith('#')).map(h => h.slice(1))
