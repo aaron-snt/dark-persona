@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { UserAnswers } from '@/app/page';
+import AdSenseUnit from './AdSenseUnit';
 
 interface ResultPageProps {
   answers: UserAnswers;
@@ -106,11 +107,12 @@ export default function ResultPage({ answers, onRestart }: ResultPageProps) {
           <h2 className="text-2xl font-semibold">당신의 어두운 면을 분석 중...</h2>
           <p className="text-gray-400">AI가 깊이 들여다보고 있습니다</p>
           
-          <div className="mt-8 bg-gray-800/50 p-6 rounded-lg max-w-md mx-auto">
-            <p className="text-sm text-gray-300 mb-4">광고 삽입 위치</p>
-            <div className="h-20 bg-gray-700 rounded flex items-center justify-center">
-              <span className="text-gray-500 text-xs">Advertisement</span>
-            </div>
+          <div className="mt-8 max-w-md mx-auto">
+            <AdSenseUnit 
+              adSlot="1234567890"
+              adFormat="rectangle"
+              className="bg-gray-800/50 p-4 rounded-lg"
+            />
           </div>
         </div>
       </div>
@@ -189,11 +191,12 @@ export default function ResultPage({ answers, onRestart }: ResultPageProps) {
             </button>
           </div>
 
-          <div className="mt-8 bg-gray-800/50 p-6 rounded-lg">
-            <p className="text-sm text-gray-300 mb-4">광고 삽입 위치</p>
-            <div className="h-24 bg-gray-700 rounded flex items-center justify-center">
-              <span className="text-gray-500 text-xs">Advertisement Banner</span>
-            </div>
+          <div className="mt-8">
+            <AdSenseUnit 
+              adSlot="0987654321"
+              adFormat="horizontal"
+              className="bg-gray-800/50 p-4 rounded-lg"
+            />
           </div>
         </div>
       </div>
