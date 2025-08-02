@@ -148,8 +148,9 @@ export default function QuestionForm({ onSubmit }: QuestionFormProps) {
             <div className="mb-6">
               <AdSenseUnit 
                 adSlot="5555555555"
-                adFormat="rectangle"
-                className="bg-gray-800/30 p-4 rounded-lg"
+                adFormat="horizontal"
+                className="bg-gray-800/30 p-2 rounded-lg"
+                adStyle={{ display: 'block', height: '60px' }}
               />
             </div>
 
@@ -184,8 +185,9 @@ export default function QuestionForm({ onSubmit }: QuestionFormProps) {
           <div className="mb-6">
             <AdSenseUnit 
               adSlot="6666666666"
-              adFormat="rectangle"
-              className="bg-gray-800/30 p-4 rounded-lg"
+              adFormat="horizontal"
+              className="bg-gray-800/30 p-2 rounded-lg"
+              adStyle={{ display: 'block', height: '60px' }}
             />
           </div>
 
@@ -235,8 +237,9 @@ export default function QuestionForm({ onSubmit }: QuestionFormProps) {
           <div className="mb-6">
             <AdSenseUnit 
               adSlot="7777777777"
-              adFormat="rectangle"
-              className="bg-gray-800/30 p-4 rounded-lg"
+              adFormat="horizontal"
+              className="bg-gray-800/30 p-2 rounded-lg"
+              adStyle={{ display: 'block', height: '60px' }}
             />
           </div>
 

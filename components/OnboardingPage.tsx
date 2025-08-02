@@ -13,7 +13,8 @@ export default function OnboardingPage({ onStart }: OnboardingPageProps) {
           <AdSenseUnit 
             adSlot="1111111111"
             adFormat="rectangle"
-            className="bg-gray-800/30 p-4 rounded-lg"
+            className="bg-gray-800/30 p-3 rounded-lg"
+            adStyle={{ display: 'block', height: '90px' }}
           />
         </div>
 
@@ -36,7 +37,8 @@ export default function OnboardingPage({ onStart }: OnboardingPageProps) {
             <AdSenseUnit 
               adSlot="2222222222"
               adFormat="horizontal"
-              className="bg-gray-800/30 p-3 rounded-lg"
+              className="bg-gray-800/30 p-2 rounded-lg"
+              adStyle={{ display: 'block', height: '60px' }}
             />
           </div>
 
@@ -65,8 +67,9 @@ export default function OnboardingPage({ onStart }: OnboardingPageProps) {
         <div className="mt-8">
           <AdSenseUnit 
             adSlot="3333333333"
-            adFormat="rectangle"
-            className="bg-gray-800/30 p-4 rounded-lg"
+            adFormat="horizontal"
+            className="bg-gray-800/30 p-2 rounded-lg"
+            adStyle={{ display: 'block', height: '60px' }}
           />
         </div>
 
@@ -80,7 +83,8 @@ export default function OnboardingPage({ onStart }: OnboardingPageProps) {
           <AdSenseUnit 
             adSlot="4444444444"
             adFormat="horizontal"
-            className="bg-gray-800/30 p-3 rounded-lg"
+            className="bg-gray-800/30 p-2 rounded-lg"
+            adStyle={{ display: 'block', height: '50px' }}
           />
         </div>
       </div>

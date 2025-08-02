@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, useId } from 'react';
 
 interface AdSenseUnitProps {
   adSlot: string;
@@ -23,7 +23,8 @@ export default function AdSenseUnit({
 }: AdSenseUnitProps) {
   const adRef = useRef<HTMLModElement>(null);
   const [adLoaded, setAdLoaded] = useState(false);
-  const adId = useRef(`adsense-${adSlot}-${Math.random().toString(36).substr(2, 9)}`);
+  const uniqueId = useId();
+  const adId = `adsense-${adSlot}-${uniqueId.replace(/:/g, '-')}`;
 
   useEffect(() => {
     if (adLoaded || !adRef.current) return;
@@ -53,7 +54,7 @@ export default function AdSenseUnit({
   }, [adLoaded]);
 
   return (
-    <div className={`adsense-container ${className}`} id={adId.current}>
+    <div className={`adsense-container ${className}`} id={adId}>
       <ins
         ref={adRef}
         className="adsbygoogle"
@@ -62,7 +63,7 @@ export default function AdSenseUnit({
         data-ad-slot={adSlot}
         data-ad-format={adFormat}
         data-full-width-responsive="true"
-        key={adId.current}
+        key={adId}
       />
     </div>
   );
