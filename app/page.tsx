@@ -11,6 +11,7 @@ export interface UserAnswers {
   traits: string[];
   mood: string;
   answers: string[];
+  language?: string;
 }
 
 export default function Home() {
@@ -32,7 +33,7 @@ export default function Home() {
 
   const handleRestart = () => {
     setCurrentStep('onboarding');
-    setUserAnswers({ traits: [], mood: '', answers: [] });
+    setUserAnswers({ traits: [], mood: '', answers: [], language: undefined });
   };
 
   return (

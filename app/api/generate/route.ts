@@ -9,6 +9,7 @@ export interface PersonaRequest {
   traits: string[];
   mood: string;
   answers: string[];
+  language?: string;
 }
 
 export interface PersonaResponse {
@@ -20,12 +21,26 @@ export interface PersonaResponse {
 
 export async function POST(request: NextRequest) {
   try {
-    const { traits, mood, answers }: PersonaRequest = await request.json();
+    const { traits, mood, answers, language = 'en' }: PersonaRequest = await request.json();
+
+    const languageMap = {
+      ko: 'Korean',
+      en: 'English', 
+      ja: 'Japanese',
+      es: 'Spanish'
+    };
+
+    const responseLanguage = languageMap[language as keyof typeof languageMap] || 'English';
 
     const prompt = `You are a dark personality profiler.
 Based on the user's traits, emotional state, and behavior choices, generate a unique persona description.
-Make it poetic, emotionally intense, and a little unnerving. 
-Respond in Korean language.
+
+Tone: 
+- Emotionally engaging but easy to understand
+- Use metaphors sparingly and clearly
+- The goal is to help the user recognize themselves, not confuse them
+
+Respond in ${responseLanguage} language.
 
 Input:
 - Traits: ${traits.join(', ')}
@@ -34,13 +49,18 @@ Input:
 
 Output format (JSON):
 {
-  "title": "One poetic line title in quotes",
-  "description": ["3-5 lines of persona description", "as separate array elements"],
-  "warning": "One warning line starting with ⚠️",
-  "hashtags": ["3 hashtags", "without # symbol", "in Korean"]
-}
-
-Generate the persona now:`;
+  "title": "A one-line poetic but clear title (in quotes)",
+  "description": [
+    "3–5 short lines describing personality in a way the user can easily relate to",
+    "Focus on observable behavior, motivation, and inner conflict",
+    "Each line must be a separate string"
+  ],
+  "warning": "A simple behavioral warning starting with ⚠️",
+  "hashtags": [
+    "3 short tags without # symbol, describing personality type and tendency",
+    "Avoid abstract or poetic terms"
+  ]
+}`;
 
     const message = await anthropic.messages.create({
       model: 'claude-3-5-sonnet-20241022',

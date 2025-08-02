@@ -3,6 +3,8 @@
 import { useState, useEffect } from 'react';
 import { UserAnswers } from '@/app/page';
 import AdSenseUnit from './AdSenseUnit';
+import { useLanguage } from '@/hooks/useLanguage';
+import { getTranslation } from '@/utils/translations';
 
 interface ResultPageProps {
   answers: UserAnswers;
@@ -17,6 +19,8 @@ interface PersonaResult {
 }
 
 export default function ResultPage({ answers, onRestart }: ResultPageProps) {
+  const { language } = useLanguage();
+  const t = getTranslation(language);
   const [persona, setPersona] = useState<PersonaResult | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -34,13 +38,13 @@ export default function ResultPage({ answers, onRestart }: ResultPageProps) {
         });
 
         if (!response.ok) {
-          throw new Error('페르소나 생성에 실패했습니다');
+          throw new Error(t.result.error);
         }
 
         const result = await response.json();
         setPersona(result);
       } catch (err) {
-        setError(err instanceof Error ? err.message : '오류가 발생했습니다');
+        setError(err instanceof Error ? err.message : t.result.generalError);
       } finally {
         setLoading(false);
       }
@@ -58,13 +62,13 @@ export default function ResultPage({ answers, onRestart }: ResultPageProps) {
     if (typeof navigator !== 'undefined' && navigator.share) {
       try {
         await navigator.share({
-          title: 'Dark Persona 테스트 결과',
+          title: `${t.title} ${t.result.share}`,
           text: shareText,
           url: window.location.href,
         });
         return;
       } catch {
-        console.log('공유 취소됨');
+        console.log(t.result.shareCanceled);
       }
     }
     
@@ -72,7 +76,7 @@ export default function ResultPage({ answers, onRestart }: ResultPageProps) {
     if (typeof navigator !== 'undefined' && navigator.clipboard && navigator.clipboard.writeText) {
       try {
         await navigator.clipboard.writeText(shareText);
-        alert('결과가 클립보드에 복사되었습니다!');
+        alert(t.result.shareSuccess);
         return;
       } catch (err) {
         console.error('클립보드 복사 실패:', err);
@@ -91,11 +95,11 @@ export default function ResultPage({ answers, onRestart }: ResultPageProps) {
       textArea.select();
       document.execCommand('copy');
       document.body.removeChild(textArea);
-      alert('결과가 클립보드에 복사되었습니다!');
+      alert(t.result.shareSuccess);
     } catch (err) {
       console.error('복사 실패:', err);
       // 최종 폴백: 수동 복사 안내
-      prompt('다음 텍스트를 복사하세요:', shareText);
+      prompt(t.result.copyManual, shareText);
     }
   };
 
@@ -104,8 +108,8 @@ export default function ResultPage({ answers, onRestart }: ResultPageProps) {
       <div className="flex flex-col items-center justify-center min-h-screen p-8">
         <div className="text-center space-y-6">
           <div className="w-16 h-16 border-4 border-purple-500 border-t-transparent rounded-full animate-spin mx-auto"></div>
-          <h2 className="text-2xl font-semibold">당신의 어두운 면을 분석 중...</h2>
-          <p className="text-gray-400">AI가 깊이 들여다보고 있습니다</p>
+          <h2 className="text-2xl font-semibold">{t.result.analyzing}</h2>
+          <p className="text-gray-400">{t.result.subtitle}</p>
           
           <div className="mt-8 max-w-md mx-auto">
             <AdSenseUnit 
@@ -124,13 +128,13 @@ export default function ResultPage({ answers, onRestart }: ResultPageProps) {
       <div className="flex flex-col items-center justify-center min-h-screen p-8">
         <div className="text-center space-y-6">
           <div className="text-red-500 text-6xl mb-4">⚠️</div>
-          <h2 className="text-2xl font-semibold text-red-400">오류가 발생했습니다</h2>
+          <h2 className="text-2xl font-semibold text-red-400">{t.result.generalError}</h2>
           <p className="text-gray-400">{error}</p>
           <button
             onClick={onRestart}
             className="px-6 py-3 bg-gradient-to-r from-purple-600 to-red-600 rounded-lg font-semibold hover:from-purple-700 hover:to-red-700 transition-all duration-200"
           >
-            다시 시도하기
+            {t.result.retry}
           </button>
         </div>
       </div>
@@ -181,13 +185,13 @@ export default function ResultPage({ answers, onRestart }: ResultPageProps) {
               onClick={handleShare}
               className="px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg font-semibold hover:from-blue-700 hover:to-purple-700 transition-all duration-200"
             >
-              결과 공유하기
+              {t.result.share}
             </button>
             <button
               onClick={onRestart}
               className="px-6 py-3 border border-gray-600 rounded-lg font-semibold hover:border-gray-500 hover:bg-gray-800/50 transition-all duration-200"
             >
-              다시 테스트하기
+              {t.result.restart}
             </button>
           </div>
 
