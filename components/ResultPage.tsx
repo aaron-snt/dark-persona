@@ -63,7 +63,7 @@ export default function ResultPage({ answers, onRestart }: ResultPageProps) {
           url: window.location.href,
         });
         return;
-      } catch (err) {
+      } catch {
         console.log('공유 취소됨');
       }
     }

@@ -11,7 +11,7 @@ interface AdSenseUnitProps {
 
 declare global {
   interface Window {
-    adsbygoogle: any[];
+    adsbygoogle: unknown[];
   }
 }
 
@@ -21,7 +21,7 @@ export default function AdSenseUnit({
   adStyle = { display: 'block' },
   className = ''
 }: AdSenseUnitProps) {
-  const adRef = useRef<HTMLInsElement>(null);
+  const adRef = useRef<HTMLModElement>(null);
   const [adLoaded, setAdLoaded] = useState(false);
   const adId = useRef(`adsense-${adSlot}-${Math.random().toString(36).substr(2, 9)}`);
 

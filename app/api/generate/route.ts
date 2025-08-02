@@ -56,7 +56,7 @@ Generate the persona now:`;
     let personaData: PersonaResponse;
     try {
       personaData = JSON.parse(responseText);
-    } catch (parseError) {
+    } catch {
       const lines = responseText.split('\n').filter(line => line.trim());
       personaData = {
         title: lines[0] || "알 수 없는 페르소나",
