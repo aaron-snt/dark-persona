@@ -51,7 +51,7 @@ export default function ResultPage({ answers, onRestart }: ResultPageProps) {
     };
 
     generatePersona();
-  }, [answers]);
+  }, [answers, t.result.error, t.result.generalError]);
 
   const handleShare = async () => {
     if (!persona) return;

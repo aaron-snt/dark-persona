@@ -1,5 +1,5 @@
 import AdSenseUnit from './AdSenseUnit';
-import { useLanguage } from '@/hooks/useLanguage';
+import { useLanguage, Language } from '@/hooks/useLanguage';
 import { getTranslation } from '@/utils/translations';
 
 interface OnboardingPageProps {
@@ -17,7 +17,7 @@ export default function OnboardingPage({ onStart }: OnboardingPageProps) {
           {['ko', 'en', 'ja', 'es'].map((lang) => (
             <button
               key={lang}
-              onClick={() => setLanguage(lang as any)}
+              onClick={() => setLanguage(lang as Language)}
               className={`px-3 py-1 rounded text-sm transition-all ${
                 language === lang 
                   ? 'bg-purple-600 text-white' 

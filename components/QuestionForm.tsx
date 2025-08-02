@@ -56,7 +56,7 @@ export default function QuestionForm({ onSubmit }: QuestionFormProps) {
         traits: selectedTraits,
         mood: selectedMood,
         language
-      } as any);
+      });
     }
   };
 
